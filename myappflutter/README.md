@@ -1,16 +1,44 @@
-# myappflutter
+# Arruma Aí - Flutter 📱
 
-A new Flutter project.
+O **Arruma Aí** é um projeto acadêmico desenvolvido para conectar os cidadãos à prefeitura, facilitando o reporte de problemas urbanos e a gestão de zeladoria da cidade. Esta versão é o front-end mobile desenvolvido em **Flutter**.
 
-## Getting Started
+## 🚀 Sobre o Projeto
 
-This project is a starting point for a Flutter application.
+O objetivo principal é permitir que o usuário registre ocorrências (como buracos, iluminação pública ou coleta de lixo) com fotos e localização, permitindo que a administração pública visualize e gerencie essas demandas de forma otimizada.
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Tecnologias Utilizadas
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* **Flutter:** Framework para desenvolvimento cross-platform.
+* **Dart:** Linguagem de programação.
+* **Material Design:** Padrões de interface de usuário.
+* **Git/GitHub:** Controle de versão.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📋 Funcionalidades (Em desenvolvimento)
+
+- [ ] Cadastro e Login de usuários.
+- [ ] Listagem de ocorrências reportadas.
+- [ ] Formulário para envio de novas ocorrências.
+- [ ] Integração com mapas/localização.
+- [ ] Visualização do status da solicitação.
+
+## ⚙️ Como executar o projeto
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/fernandaafernandes/Arruma-Ai-Flutter.git](https://github.com/fernandaafernandes/Arruma-Ai-Flutter.git)
+    ```
+2.  **Entre na pasta do projeto:**
+    ```bash
+    cd myappflutter
+    ```
+3.  **Instale as dependências:**
+    ```bash
+    flutter pub get
+    ```
+4.  **Execute o app:**
+    ```bash
+    flutter run
+    ```
+
+---
+Desenvolvido por [Fernanda Fernandes](https://github.com/fernandaafernandes) como parte do curso de Análise e Desenvolvimento de Sistemas.
