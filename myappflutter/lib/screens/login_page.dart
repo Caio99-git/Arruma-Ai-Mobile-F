@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const ReportPage()),
       );
     });
   }
@@ -95,6 +95,9 @@ class _LoginPageState extends State<LoginPage> {
               width: 34,
               height: 34,
               fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.account_circle, color: Colors.grey, size: 34);
+              },
             ),
             const SizedBox(width: 18),
             Expanded(
@@ -129,7 +132,6 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 8),
-
                   const Text(
                     'Arruma-Ai',
                     style: TextStyle(
@@ -138,21 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.black,
                     ),
                   ),
-
-                  const SizedBox(height: 28),
-
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(30),
-                  //   child: Image.asset(
-                  //     'assets/logo-arrumaai.png',
-                  //     width: 90,
-                  //     height: 90,
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
-
-                  const SizedBox(height: 28),
-
+                  const SizedBox(height: 56),
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -164,9 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 8),
-
                   TextField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -174,9 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                       hintText: 'seuemail@exemplo.com',
                     ),
                   ),
-
                   const SizedBox(height: 28),
-
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -188,9 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 8),
-
                   TextField(
                     controller: _senhaController,
                     obscureText: !_mostrarSenha,
@@ -212,9 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 22),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -222,37 +202,23 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {},
                         child: const Text(
                           'Esqueci a senha',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
+                          style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          '|',
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.black,
-                          ),
-                        ),
+                        child: Text('|', style: TextStyle(fontSize: 24, color: Colors.black)),
                       ),
                       TextButton(
                         onPressed: () {},
                         child: const Text(
                           'Criar conta',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
+                          style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 18),
-
                   SizedBox(
                     width: 220,
                     height: 62,
@@ -260,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: _estaCarregando ? null : _fazerLogin,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF34A853),
-                        foregroundColor: Colors.black,
+                        foregroundColor: Colors.white,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -277,24 +243,17 @@ class _LoginPageState extends State<LoginPage> {
                       )
                           : const Text(
                         'Entrar',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 40),
-
                   _socialButton(
                     imagePath: 'assets/google.png',
                     texto: 'Continue com Google',
                     onTap: () {},
                   ),
-
                   const SizedBox(height: 18),
-
                   _socialButton(
                     imagePath: 'assets/apple.png',
                     texto: 'Continue com Apple',
