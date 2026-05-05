@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../services/auth_service.dart';
+import '../utils/validators.dart';
 import 'report_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,23 +11,37 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _senhaController = TextEditingController();
+  final _authService = AuthService();
 
   bool _estaCarregando = false;
   bool _mostrarSenha = false;
 
-  void _fazerLogin() {
+  Future<void> _fazerLogin() async {
+    if (!_formKey.currentState!.validate()) return;
+
     setState(() => _estaCarregando = true);
 
-    Future.delayed(const Duration(seconds: 1), () {
-      setState(() => _estaCarregando = false);
+    final sucesso = await _authService.login(
+      _emailController.text.trim(),
+      _senhaController.text,
+    );
 
+    if (!mounted) return;
+    setState(() => _estaCarregando = false);
+
+    if (sucesso) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const ReportPage()),
       );
-    });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Falha ao entrar. Tente novamente.')),
+      );
+    }
   }
 
   @override
@@ -128,7 +144,9 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 420),
-              child: Column(
+              child: Form(
+                key: _formKey,
+                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 8),
@@ -153,9 +171,11 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  TextField(
+                  TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: Validators.email,
                     decoration: _inputDecoration(
                       hintText: 'seuemail@exemplo.com',
                     ),
@@ -173,9 +193,11 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  TextField(
+                  TextFormField(
                     controller: _senhaController,
                     obscureText: !_mostrarSenha,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: Validators.password,
                     decoration: _inputDecoration(
                       hintText: 'Digite sua senha',
                       suffixIcon: IconButton(
@@ -195,7 +217,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 22),
-                  Row(
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(
@@ -217,6 +241,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ],
+                  ),
                   ),
                   const SizedBox(height: 18),
                   SizedBox(
@@ -260,6 +285,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {},
                   ),
                 ],
+              ),
               ),
             ),
           ),
