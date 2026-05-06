@@ -1,30 +1,39 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:myappflutter/main.dart';
+import 'package:myappflutter/screens/login_page.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('App boots and shows the LoginPage', (tester) async {
+    await tester.pumpWidget(const ArrumaAiApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.byType(LoginPage), findsOneWidget);
+    expect(find.text('Arruma-Ai'), findsOneWidget);
+    expect(find.text('E-mail:'), findsOneWidget);
+    expect(find.text('Senha:'), findsOneWidget);
+    expect(find.text('Entrar'), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+  testWidgets('Tapping Entrar with empty fields shows validation errors',
+      (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: LoginPage()));
+
+    await tester.tap(find.text('Entrar'));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Informe o e-mail'), findsOneWidget);
+    expect(find.text('Informe a senha'), findsOneWidget);
+  });
+
+  testWidgets('Invalid email shows the format error', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: LoginPage()));
+
+    await tester.enterText(find.byType(TextFormField).first, 'not-an-email');
+    await tester.enterText(find.byType(TextFormField).last, '123456');
+    await tester.tap(find.text('Entrar'));
+    await tester.pump();
+
+    expect(find.text('E-mail inválido'), findsOneWidget);
   });
 }
